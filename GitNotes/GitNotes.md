@@ -36,9 +36,9 @@ Delete file, use `rm <filename>`, then, use `git rm <filename>`, finally, rememb
 
 `ssh-keygen -t rsa -C "youremail@example.com"`
 
-If everything goes well, you can find the ***.ssh*** directory in the user home directory which contains ***id_rsa*** and ***id_rsa.pub***. 
+If everything goes well, you can find the ***.ssh*** directory in the user home directory which contains ***id_rsa*** and ***id_rsa.pub***.
 
-:blue_heart: ATTENTION :blue_heart: : 
+:blue_heart: ATTENTION :blue_heart: :
 
 ***id_rsa*** is a private key, it can't be disclosed. ***id_rsa.pub*** is a public key, you can safely tell others.
 
@@ -88,7 +88,6 @@ For now, assuming you're developing from scratch, the best way to do this is to 
 
 `git clone git@github.com:<github account name>/<repository name>.git`
 
-
 For example, my GitHub account name is ***ruochenwang929***, and I create a new GitHub repository named ***Test***. Then I should enter the following command in my local repository:
 
 `git clone git@github.com:ruochenwang929/Test.git`
@@ -113,12 +112,14 @@ Switch to ***test*** branch: `git checkout test`
 
 `git checkout -b test`
 
-Then you can check current branch: `git branch`, this command will list all branches, with the current branch preceded by an asterisk.
+Then you can check current branch: `git branch`, this command will list all local branches, with the current branch preceded by an asterisk. (If you want to display all local and remote branches, use: `git branch -a`)
 
 Now you can make changes and commit on the ***test*** branch, when your work is done on the ***test*** branch, you can switch back to ***master*** branch: `git check out master`.
 
 Finally, you should merge the work of the ***test*** branch into the ***master*** branch: `git merge test`.
 
 After merge ***test*** branch, you can chose to delete ***test*** branch: `git branch -d test`.
+
+However, the above command can only delete branches of the local repository, if you want to delete branches of the remote repository, use: `git push origin --delete test`
 
 :poop: Author has to write his assignment, to be continue...
