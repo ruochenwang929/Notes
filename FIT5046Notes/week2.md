@@ -35,6 +35,7 @@
             <activity
                 android:name=".MainActivity"
                         #模拟机启动时直接调用main activity
+                        #后续可以改成login activity
                 android:exported="true">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
@@ -85,3 +86,121 @@
     }
 
 constraint layout: 每个组件至少需要两个参数来确定它在屏幕中的位置
+
+UI设计：谷歌搜 XXXX material design
+
+## 项目背景设计
+
+res.drawable中添加background.xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item>
+            <shape>
+                <gradient
+                    android:angle="90"
+                    android:startColor="@color/lemonchiffon"
+                    android:endColor="@color/ivory"
+                    #所用color已在values -> colors.xml中添加
+                />
+            </shape>
+        </item>
+    </selector>
+
+## LoginActivity.java
+
+    public class LoginActivity extends AppCompatActivity {
+
+        private ActivityLoginBinding binding;
+
+        @Override
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            binding = ActivityLoginBinding.inflate(getLayoutInflater());
+            View view = binding.getRoot();
+            setContentView(view);
+        }
+    }
+
+## activity_login.xml
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/background"
+            #与drawable -> background.xml关联
+        android:gravity="center">
+            #居中
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp">
+                #边框设置成圆角   
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="login"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/usernameInputText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="@string/label1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordInputText"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        app:endIconMode="password_toggle"
+                            #显示/隐藏密码
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="@string/label2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            android:inputType="textPassword"
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#A1D3FB"
+            android:insetTop="6dp"
+            android:text="Login"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
