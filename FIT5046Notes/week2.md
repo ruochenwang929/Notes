@@ -55,8 +55,10 @@
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+                                                #activity_main.xml里的LinearLayout
         View view = binding.getRoot();
         setContentView(view);
+        #把view加载到当前的activity里面
 
         List<String> list = new ArrayList<String>();
         list.add("Toy Story");
