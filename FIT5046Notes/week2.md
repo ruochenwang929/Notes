@@ -160,7 +160,6 @@ res.drawable中添加background.xml
                     android:textSize="30sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/usernameInputText"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -168,6 +167,7 @@ res.drawable中添加background.xml
                         android:hint="@string/label1">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/usernameInputText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         </com.google.android.material.textfield.TextInputEditText>
@@ -175,7 +175,6 @@ res.drawable中添加background.xml
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/passwordInputText"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -185,6 +184,7 @@ res.drawable中添加background.xml
                         android:hint="@string/label2">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordInputText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             android:inputType="textPassword"

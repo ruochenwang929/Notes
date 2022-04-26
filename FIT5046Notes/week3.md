@@ -108,3 +108,130 @@ e.g. `String msg = intent.getStringExtra(“message”);`
 Object 传递需要把 java object 转换成 parcelable, parcelable 是一个类似 serializable 的序列化格式，但更高效，原理是bundle只接受序列化数据，不接受 java object
 
 ## Assignment Notes
+
+### AndroidmMnifest.xml
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AssignmentDemo">
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"/>
+            #每新建一个activity，都需要在manifest中进行注册
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            #键盘弹出时适应界面
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+### activity_signup.xml
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:gravity="center">
+        #用于上下拉动页面
+
+        <LinearLayout
+          ......
+        </LinearLayout>
+
+    </ScrollView>
+
+# 界面跳转
+
+Login -> Sign up
+
+    private ActivityLoginBinding binding;
+
+      @Override
+      protected void onCreate(@Nullable Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          binding = ActivityLoginBinding.inflate(getLayoutInflater());
+          View view = binding.getRoot();
+          setContentView(view);
+
+          binding.signupTextView.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                  startActivity(intent);
+              }
+          });
+      }
+
+Sign up -> Login
+
+    private ActivitySignupBinding binding;
+
+      @Override
+      protected void onCreate(@Nullable Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          binding = ActivitySignupBinding.inflate(getLayoutInflater());
+          View view = binding.getRoot();
+          setContentView(view);
+
+          binding.backToLoginView.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+              }
+          });
+      }
+
+After validation
+
+    if (isValidEmail)
+    {
+        //UI线程
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        //后端线程
+        try {
+            Thread.sleep(5000);
+        } catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        //UI线程
+        Toast.makeText(SignupActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
+        binding.progressBar.setVisibility(View.GONE);
+    }
+
+解决办法
+
+    if (isValidEmail)
+    {
+        binding.progressBar.setVisibility(View.VISIBLE);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            runOnUiThread(() -> {
+                Toast.makeText(SignupActivity.this, "Sign up successfully", Toast.LENGTH_SHORT).show();
+                binding.progressBar.setVisibility(View.GONE);
+            });
+        }).start();
+    }
