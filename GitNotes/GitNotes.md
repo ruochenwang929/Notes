@@ -122,4 +122,18 @@ After merge ***test*** branch, you can chose to delete ***test*** branch: `git b
 
 However, the above command can only delete branches of the local repository, if you want to delete branches of the remote repository, use: `git push origin --delete test`
 
+### .gitignore
+
+Configure .gitignore in IDEA:
+
+1. Install **.gitignore** plugin in IDEA
+2. In project level, New -> .ignore file -> .gitignore file(git)
+3. Configure corresponding filtering files
+4. The added.gitignore may not work
+   a. Go to the folder where the project package is located
+   b. `git rm -r --cached .`
+   c. `git add .`
+   d. `git commit -m "update .gitignore"`
+
+
 :poop: Author has to write his assignment, to be continue...
