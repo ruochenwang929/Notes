@@ -26,7 +26,7 @@ Thread 线程:
 - 使用简便
 - 是耗时操作，**不能在UI Thread使用**
 
-![Room architecture](../Images/Room.png)
+![Room architecture](./Images/Room.png)
 
 ### 使用Room创建数据库的步骤
 
