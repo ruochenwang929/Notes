@@ -28,6 +28,12 @@ Thread 线程:
 
 ![Room architecture](./Images/Room.png)
 
+DAO和数据库直连，里面写都是sql语句
+
+DAO中拿出的数据通过Repository将数据映射为java中的entity
+
+ViewModel（连接前后端）将repository中的java对象转化成前端UI
+
 ### 使用Room创建数据库的步骤
 
 1. extends RoomDB
