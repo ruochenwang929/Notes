@@ -1,29 +1,73 @@
 # Week 2 - Android Spinner
 
-## AndroidManifest.xml
+## Spinner
 
-        <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher" 
-                        #APP图标，在res->mipmap->ic_launcher.xml下
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-                        #图标的形状，方形的或者圆形的
-            android:supportsRtl="true"
-            android:theme="@style/Theme.AssignmentDemo">
-                        #主题
-            <activity
-                android:name=".MainActivity"
-                        #模拟机启动时直接调用main activity
-                        #后续可以改成login activity
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+- A spinner provides an easy way to display a set of values that the user can select from
+- A spinner shows its selected (or default) item
+- When the spinner is touched, it displays a dropdown menu with all the other options
+- Populating spinners dynamically requires using a SpinnerAdapter such as an ArrayAdapter
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-            </activity>
-        </application>
+![Spinner](./Images/Spinner.png)
+
+## Spinner and ArrayAdapter
+
+1. First need to declare a list to hold your items to display
+
+        List<String> list = new ArrayList<String>();
+        list.add("Toy Story");
+        list.add("Up");
+        list.add("Shrek");
+
+2. Instantiate an ArrayAdapter<T> by passing to its constructor the current context, a spinner layout and a list of objects: ArrayAdapter (Context context, int resource, T[ ] objects)
+
+        ArrayAdapter<String> spinnerArrayAdapter = 
+        new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+
+3. Then the adapter can be applied to the spinner
+`binding.movieSpinner.setAdapter(spinnerAdapter);`
+
+## Adding Items to Spinner
+
+- You can add new items to the spinner by adding them first to the adapter
+
+- Call the adapter’s add( ) method
+    – `spinnerAdapter.add(newItem);`
+    – It adds the new object at the end of the array
+
+- Notify the adapter of the change so it refreshes itself
+    – `spinnerAdapter.notifyDataSetChanged();`
+
+## Selecting Items from Spinner
+
+Register with the listener, implement the onItemSelected() method, and also include the onNothingSelected( ) method
+
+    binding.movieSpinner.setOnItemSelectedListener 
+    (new AdapterView.OnItemSelectedListener() {
+
+    //parent is the AdapterView where the click happened
+    //view is the view within the AdapterView that was clicked 
+    //Spinner, ListView or GridView are subclasses of AdapterView <?> 
+    //position is the position of the view in the adapter
+    //id is the row id of the item that was clicked
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) 
+        { 
+            String selectedMovie = parent.getItemAtPosition(position).toString(); 
+            if(selectedMovie != null){
+                Toast.makeText(parent.getContext(),"Movie selected is " +
+                selectedMovie,Toast.LENGTH_LONG) .show();
+            } 
+        }
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        } 
+    });
+
+Toast methods:
+
+1) public static Toast makeText (Context context, CharSequence text, int duration) 
+1) public void show ()
 
 ## Spinner: MainActivity.java
 
