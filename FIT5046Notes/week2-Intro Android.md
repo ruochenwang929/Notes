@@ -318,3 +318,34 @@ An activity goes through a number of states during its lifetime
 - It is fully interoperable with JavaTM and AndroidTM
   - You can convert your Java code to Kotlin
 
+## Android Emulator or AVD
+
+- An Android emulator is essential to test your application
+- The emulator simulates a device and displays your application on the computer
+- Android emulators are called **Android Virtual Devices** (AVDs)
+- You first need to create an AVD by clicking on **AVD Manager**
+- Then click on **Create Virtual Device** to create a new AVD, and **install** the required system images and APIs (API 30 or later)
+
+## Logcat
+
+- Logcat is used to create logs
+- When an exception happens, logcat shows the details and the associated stack trace containing links to the line of code
+- You can also write messages to the log using Log.e(), Log.w(), and Log.i() and Log.d for ERROR, WARN, INFO and DEBUG
+  - E.g. Log.d("Test ", "value of x:" + tv.getText());
+- You can filter the log by selecting errors from the dropdown list or clear the logcat
+
+## Producing an Android App
+
+![Activity procedure](./Images/Procedure.png)
+
+## APK Packager
+
+- **The APK Packager** combines the DEX files and compiled resources into a single APK that can run on a device
+- The APK Packager signs your APK using either **the debug keystore** for testing/profiling purposes (by default), or **the release keystore** to release externally (see instructions)
+  - https://developer.android.com/studio/publish/app-signing.html
+- The other option is to compile the Android library into **the Android Archive (AAR)** file and use it as a dependency
+  - https://developer.android.com/studio/projects/android-library.html
+
+![APK](./Images/APK.png)
+
+AIDL (Android Interface Definition Language) similar to other IDLs, used to define the programming Interface that the client and service agree on in order to communicate with each other using interprocess communication (IPC)
