@@ -101,7 +101,8 @@ While REST is not a standard, it uses standards:
 - Client/Server
 - Stateless
 - Cache
-- Uniform Interface  Layered Systems
+- Uniform Interface
+- Layered Systems
 - Code-On-Demand
 
 ### Client-Server
@@ -121,3 +122,200 @@ platforms
   - each request from the client to the server must contain all the information necessary to understand the request
   - it cannot take advantage of any stored context on the server
   - Improves scalability and reliability
+
+### Cache
+
+- ...the data within a response to a request be implicitly or explicitly labelled as cacheable or non- cacheable.”
+  - If a response is cacheable, the response can be reused for equivalent requests later
+  - Improves network efficiency and performance
+  - “reducing the average latency of a series of interactions”
+  - decreases reliability (possibility of stale data)
+
+### Uniform Interface
+
+- all resources are accessed with a generic interface (e.g., HTTP GET, POST, PUT, DELETE)
+  - PATCH is an HTTP method that enables updating part of the resources
+  - HEAD is similar to GET but with no response body
+  - OPTIONS is a request for information about the communication options
+- the overall system architecture is simplified
+- It is standardised and not specific to an application's needs
+
+#### REST methods
+
+Method:
+GET, Retrieve a copy of a Resource (Idempotent)
+DELETE, Remove a Resource (Idempotent)
+POST, Create or sometimes update (Not Idempotent)
+PUT, Update a Resource or sometimes create (Idempotent)
+
+An idempotent method is a method that can be invoked once or many times and its effect will be the same (considering the state on the server side)
+
+### Layered System
+
+- allows an architecture to be composed of hierarchical layers
+  - each component cannot "see" beyond the immediate layer with which they are interacting
+  - Clients have no knowledge that services they invoke may also invoke other services
+  - This can be used to improve scalability by enabling load balancing of services across multiple networks and processors
+
+### Code-On-Demand
+
+- an optional constraint
+- “allows client functionality to be extended by downloading and executing code in the form of applets or scripts.”
+
+## REST- Interface Constraints
+
+1. identification of resources
+2. manipulation of resources through representations
+3. self-descriptive messages
+4. hypermedia as the engine of application state (HATEOAS)
+
+### Interface Constraints - Resources
+
+REST is based on these notions:
+
+- A resource
+  - Any information that can be named can be a resource
+  - A document or image, a service, a non-virtual object (e.g. a person)
+  - Nouns instead of verbs
+
+- A resource identifier
+  - Each resource accessible by a URI/URL
+  - A resource identifier (URI) identifies a particular resource
+  - ‘Nice’ URIs
+
+### REST Resources
+
+- Each resource addressable by a URI
+  - A bucket e.g. /restws.books
+- GET /restws.books
+  - Get all the items
+- GET /restws.books/{an existing-id}
+  - Get the item based on its id
+- POST /restws.books (requires sending some data)
+  - Create a new item
+- PUT /restws.books/{an existing-id} (requires sending some data)
+  - Update an existing item based on its id
+- DELETE /restws.books/{an existing-id}
+  - Delete an existing item based on its id
+
+### Interface Constraints - Representation
+
+- A **representation** of a resource is **a document capturing the current state of a resource**
+- **A resource can have different representations** (e.g. JSON or XML)
+  - Client can specify which representation can accept (e.g. in http accept header)
+- REST (REpresentational **State Transfer**): each resource state has a representation, and this representation can be updated and transferred from the server to the client application
+
+### JSON
+
+JSON stands for JavaScript Object Notation
+
+JSON is lightweight text-data interchange format
+
+JSON is "self-describing" and easy to understand
+
+JSON supports two structures:
+
+**Objects**: a collection of name/value pairs
+{"firstName": "John"}
+
+A value can be a string, a number, true/false or null, or an object or an array (nested)
+
+Arrays: an ordered list of values
+
+    {"phoneNumber":[ 
+      {
+        "type": "home", "number": "212 555-1234" 
+      },
+      {
+        "type": "fax", "number": "646 555-4567"
+      } ] }
+
+### JSON (cont’d)
+
+Objects in name/value pairs , each name is followed by a colon
+
+Data is separated by commas
+
+Curly braces hold objects
+
+Square brackets hold arrays
+
+    {
+      "firstName": "John", "lastName": "Smith", "age": 25, "address": { 
+        "streetAddress": "21 2nd Street",
+      "city": "New York",
+      "state": "NY",
+      "postalCode": 10021
+      }, 
+      "phoneNumber": [
+      {
+        "type": "home", "number": "212 555-1234" },
+      {
+      }] 
+    }
+
+### JSON Data Types
+
+a string `{ "name":"John" }`
+
+a number `{ "age":30 }`
+
+an object (JSON object)
+
+    "address": {
+    "streetAddress": "21 2nd Street", 
+    "city": "New York", 
+    "state": "NY", 
+    "postalCode": 10021 },
+
+an array
+
+    {"phoneNumber":[
+    {
+      "type": "home", "number": "212 555-1234"
+    },
+    {
+      "type": "fax", "number": "646 555-4567"
+    }]}
+
+a boolean `{"sale":true}`
+
+null `{"middlename":null}`
+
+### Parsing JSON
+
+JSON parsing online
+
+http://json.parser.online.fr/
+
+https://jsoneditoronline.org/
+
+### Parsing JSON (cont’d)
+
+There are libraries to create and parse JSON such as Google Gson libraries
+
+In Android, we will use org.json libraries
+
+`import org.json.JSONObject;`
+
+The JSONObject class is used to create or parse JSON
+
+    JSONObject jsonObject = new JSONObject(result); 
+    JSONArray jsonArray = jsonObject.getJSONArray("items"); 
+    if(jsonArray != null && jsonArray.length() > 0) {
+      snippet =jsonArray.getJSONObject(0).getString("snippet"); 
+    }
+
+### REST-Interface Constraints
+
+1. identification of resources
+2. manipulation of resources through representations
+3. **self-descriptive messages**
+4. hypermedia as the engine of application state (HATEOAS)
+
+#### Interface Constraints – Self-Descriptive Messages
+
+self-descriptive messages
+
+- Messages between components are self-descriptive to support intermediate processing
+- Each message contains all the information and semantics necessary to complete the task
