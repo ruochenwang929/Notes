@@ -68,7 +68,7 @@ Probably not on the exam
 
 <https://developer.android.com/jetpack>
 
-![Android language](./Images/AndroidLanguage.png)
+<div align=center><img src="./Images/AndroidLanguage.png" alt="Android language" width="400"/></div>
 
 ## Layouts - part of Android Jetpack
 
@@ -305,7 +305,7 @@ An activity goes through a number of states during its lifetime
 
 - The activity is about to be terminated
 
-![Activity lifecycle](./Images/Lifecycle.png)
+<div align=center><img src="./Images/Lifecycle.png" alt="Android language" width="550"/></div>
 
 ## Kotlin Language
 
@@ -336,7 +336,7 @@ An activity goes through a number of states during its lifetime
 
 ## Producing an Android App
 
-![Activity procedure](./Images/Procedure.png)
+<div align=center><img src="./Images/Procedure.png" alt="Activity procedure" width="500"/></div>
 
 ## APK Packager
 
@@ -346,6 +346,6 @@ An activity goes through a number of states during its lifetime
 - The other option is to compile the Android library into **the Android Archive (AAR)** file and use it as a dependency
   - https://developer.android.com/studio/projects/android-library.html
 
-![APK](./Images/APK.png)
+<div align=center><img src="./Images/APK.png" alt="APK" width="450"/></div>
 
 AIDL (Android Interface Definition Language) similar to other IDLs, used to define the programming Interface that the client and service agree on in order to communicate with each other using interprocess communication (IPC)

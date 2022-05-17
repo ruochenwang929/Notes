@@ -7,7 +7,7 @@
 - When the spinner is touched, it displays a dropdown menu with all the other options
 - Populating spinners dynamically requires using a SpinnerAdapter such as an ArrayAdapter
 
-![Spinner](./Images/Spinner.png)
+<div align=center><img src="./Images/Spinner.png" alt="Spinner" width="300"/></div>
 
 ## Spinner and ArrayAdapter
 
