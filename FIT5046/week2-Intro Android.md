@@ -68,7 +68,7 @@ Probably not on the exam
 
 <https://developer.android.com/jetpack>
 
-<div align=center><img src="./Images/AndroidLanguage.png" alt="Android language" width="400"/></div>
+<div align=center><img src="./Images/AndroidLanguage.png" alt="Android language" width="500"/></div>
 
 ## Layouts - part of Android Jetpack
 
