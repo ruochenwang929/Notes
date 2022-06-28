@@ -185,3 +185,74 @@ NIO是一种同步非阻塞的I/O模型，NIO提供了与传统BIO模型中的So
 ### 烧水壶例子
 
 烧一排水壶，BIO就是烧完一壶才可以烧下一壶，NIO就是有一个人循环看着一排水壶的状况，有情况通知，AIO就是每个水壶自己烧开了通知对应的线程处理；同步和异步的区别就是一个消息发送是否需要等上一次消息返回；阻塞和非阻塞的区别就是等待结果时是否会被阻塞
+
+## 深拷贝和浅拷贝
+
+### 浅拷贝
+
+只拷贝被拷贝对象本身，而其他所有对象的引用仍然指向原来的对象。即，只会对“主”对象进行拷贝，不会拷贝主对象里的对象
+
+### 深拷贝
+
+当被拷贝对象本身以及其引用的对象一起拷贝时发生了深拷贝
+
+### 参考
+
+https://blog.csdn.net/baiye_xing/article/details/71788741
+
+## Java异常
+
+### Throwable
+
+#### Error
+
+是程序无法处理的错误，表示运行应用程序中有严重的问题。大多数错误与代码编写者执行的操作无关，而表示代码运行时JVM出现的问题。例如JVM运行错误（Virtual MachineError），当JVM不再有继续执行操作所需的内存资源时，将出现OutOfMemoryError。这些异常发生时，JVM一般会选择线程终止。
+
+#### Exception
+
+是程序本身可以处理的异常。Exception类有一个重要的子类RuntimeException。RuntimeException异常由JVM抛出。
+
+- NullPointerException：要访问的变量没有引用任何对象
+- ArthmeticException：算数运算异常
+- ArrayIndexOutOfBoundException：下标越界
+
+### 异常处理
+
+#### try
+
+用于捕获异常，将可能产生异常的代码包住
+
+#### catch
+
+用于对捕获的异常进行处理
+
+#### finally
+
+无论是否有异常捕获都会执行其中的代码。当try或catch中有return时，finally中的语句会在返回前执行；若finally中也有return，则其将会覆盖try或catch中的返回值
+
+#### 四种finally语句不会执行的特殊情况
+
+1. 在finally语句块第一行发生了异常。因为在其他行，finally块还是会得到执行
+2. 前面的代码用了System.exit(int)退出程序，如果在此之前发生了异常，还是会执行
+3. 程序所在线程死亡
+4. 关闭CPU
+
+## Java1.8新特性
+
+### Lambda表达式
+
+允许把函数作为一个方法的参数
+
+### 方法引用
+
+允许直接引用已有Java类或对象的方法或构造方法
+
+    ArrayList<String> list = new ArrayList<>();
+    list.add("a");
+    list.add("b");
+    list.add("c");
+    list.forEach(System.out::println);
+
+### 接口允许定义默认方法和静态方法
+
+允许接口中存在一个或多个默认非抽象方法和静态方法
