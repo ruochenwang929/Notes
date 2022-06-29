@@ -256,3 +256,21 @@ https://blog.csdn.net/baiye_xing/article/details/71788741
 ### 接口允许定义默认方法和静态方法
 
 允许接口中存在一个或多个默认非抽象方法和静态方法
+
+### Stream API
+
+    people.stream().forEach(person -> person.order += 10);
+    people.stream().filter(new Predicate<Person>(){
+        @override
+        public boolean test(Person person){
+            return person.order > 17;
+        }
+    }).forEach(Person::say);
+
+### 日期/时间类改进
+
+    LocalDate date = LocalDate.now();
+    LocalTime time = LocalTime.now();
+    LocalDateTime dataTime = LocalDateTime.now();
+    LocalDateTime today = LocalDateTime.of(2022,6,29,09,20);
+    int i = today.compareTo(LocalDateTime.now());
