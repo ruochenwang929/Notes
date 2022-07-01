@@ -118,4 +118,91 @@ ArrayList影响主要在于插入前和删除后元素的移动，LinkedList影�
         return grow(size + 1);
     }
 
-minCapacity指满足本次扩容的最小容量；<2>处，说明如果数组中有元素或者不是利用无参构造方法创建的，那么计算新的数组的大小，计算方法简单的可以理解为max(minCapacity - oldCapacity, oldCapacity >> 1) + oldCapacity，即前者指最小满足本次扩容的容量减去原来的容量，就是最小需要扩容容量；后者指原来的容量除以2；对于max操作来说，一般都是后者更大，有两种情况除外：1.oldCapacity为0，那么除以2还是为0，而minCapacity最小为1（因为只有添加元素时才会触发扩容）；2.批量添加元素时（addAll），此时minCapacity需要的最小扩容容量可能会比原来容量的一半要大；<3>则说明是无参构造方法创建的，取默认容量（10）和最小满足要求容量的最大值。所以一般用无参方法构建的数组默认容量为0，是空数组，只有在添加元素时，容量才有可能为10.
+    private Object[] grow(int minCapacity) {
+        int oldCapacity = elementData.length;
+        //<2> 如果原容量大于0，或者数组不是DEFAULT_EMPTY_ELEMENTDATA时，计算新的数组大小
+        if (oldCapacity > 0 || elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA){
+            int newCapacity = ArraySupport.newLength(oldCapacitry, minCapacity - oldCapacity, oldCapacity >> 1);
+            return elementData = Arrays.copyOf(elementData, newCapacity);
+            //<3> 如果是DEFAULTCAPACITY_EMPTY_ELEMENTDATA数组，直接创建新的数组即可
+        } else {
+            return elementData = new Object[Math.max(DEFAULT_CAPACITY, minCapacity)];
+        }
+    }
+
+minCapacity指满足本次扩容的最小容量；
+<2>处，说明如果数组中有元素或者不是利用无参构造方法创建的，那么计算新的数组的大小，计算方法简单的可以理解为max(minCapacity - oldCapacity, oldCapacity >> 1) + oldCapacity，即前者指最小满足本次扩容的容量减去原来的容量，就是最小需要扩容容量；后者指原来的容量除以2；
+对于max操作来说，一般都是后者更大，有两种情况除外：
+1.oldCapacity为0，那么除以2还是为0，而minCapacity最小为1（因为只有添加元素时才会触发扩容）；
+2.批量添加元素时（addAll），此时minCapacity需要的最小扩容容量可能会比原来容量的一半要大；
+<3>则说明是无参构造方法创建的，取默认容量（10）和最小满足要求容量的最大值。所以一般用无参方法构建的数组默认容量为0，是空数组，只有在添加元素时，容量才有可能为10.
+
+### 缩容
+
+    public void trimToSize() {
+        //增加修改次数
+        modCount++;
+        //如果有多余的空间，则进行缩容
+        if (size < elementData.length) {
+            elementData = (size == 0)
+                ? EMPTY_ELEMENTDATA //大小为0时，直接使用EMPTY_ELEMENTDADA
+                : Arrays.copyOf(elementData, size);
+        }
+    }
+
+## 多线程场景下如何使用ArrayList
+
+1. 通过Collections的synchronizedList方法将其转换成线程安全的容器后再使用
+
+        List<String> synchronizedList = Collections.synchronizedList(list);
+        synchronizedList.add("aaa");
+        synchronizedList.add("bbb");
+        for (int i = 0; i < synchronizedList.size(); i++) {
+            System.out.println(synchronizedList.get(i));
+        }
+
+2. 使用CopyOnWriteArrayList
+
+## HashMap和HashTable区别
+
+### 线程安全
+
+HashMap非线程安全，HashTable线程安全
+
+### 效率
+
+HashTable因为线程安全，有额外的同步操作，HashMap的效率更高
+
+### 初始容量和扩容策略
+
+- HashMap默认初始化小大为16，若给定大小，则会将其扩充为2的幂次方大小；每次扩容为原来的2倍
+- HashTable默认初始化大小为11，若给定大小，则直接使用给定的大小；每次扩容变为原来的2n + 1
+
+### 对Null key和Null value支持
+
+- HashMap支持Null作为键和值
+- HashTable不允许有null键和值，否则会抛出NullPointerException
+
+原因
+
+- Hashtable使用Enumeration迭代器是安全失败机制（fail-safe），在使用过程中允许别的线程修改数据，如果存了null会存在二义性
+- 而HashMap是fail-fast机制，遍历过程中不允许修改，不然报异常Concurrent Modification Exception；Hashtable使用Iterator迭代器是fail-fast机制
+
+### 哈希地址
+
+hashtable没有加扰动函数直接用key的hashcode，hashmap加了扰动函数
+
+### 底层数据结构
+
+JDK1.8 以后的 HashMap 在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间。Hashtable 没有这样的机制，一直都是数组+链表的形式
+
+## HashMap和HashSet区别
+
+HashSet底层就是基于HashMap实现的，HashSet的源码非常非常少，因为除了clone() 、 writeObject() 、 readObject() 是 HashSet自己不得不实现之外，其他方法都是直接调用 HashMap 中的方法
+
+| HashMap | HashSet |
+| --- | --- |
+| 实现了Map接口 | 实现了Set接口 |
+| 存储键值对 | 仅存储对象 |
+| 调用put()向map中添加元素 | 调用add()方法添加元素 |
+| HashMap**使用键（Key）** 计算hashcode | HashSet**使用成员对象** 来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性 |
