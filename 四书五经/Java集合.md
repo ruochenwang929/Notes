@@ -206,3 +206,35 @@ HashSet底层就是基于HashMap实现的，HashSet的源码非常非常少，�
 | 存储键值对 | 仅存储对象 |
 | 调用put()向map中添加元素 | 调用add()方法添加元素 |
 | HashMap**使用键（Key）** 计算hashcode | HashSet**使用成员对象** 来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性 |
+
+## HashSet实现原理
+
+HashSet 是基于 HashMap 实现的，HashSet的值存放于HashMap的key上，HashMap的value统一为
+PRESENT(new Object())，因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层
+HashMap 的相关方法来完成，HashSet 不允许重复的值
+
+## HashSet如何检查重复
+
+当你把对象加入 HashSet 时， HashSet 会先计算对象的 hashcode 值来判断对象加入的位置，同时也会与其他加入的对象的 hashcode 值作比较，如果没有相符的 hashcode ， HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用 equals() 方法来检查hashcode 相等的对象是否真的相同。如果两者相同， HashSet 就不会让加入操作成功
+
+## HashMap底层实现
+
+### JDK1.8之前
+
+JDK1.8之前HashMap底层是数组和链表结合在一起使用也就是链表散列。HashMap通过key的hashCode经过扰动函数处理过后得到hash值，然后通过(n - 1) & hash判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的hash值以及key是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突
+
+所谓扰动函数指的就是 HashMap 的 hash 方法。使用 hash 方法也就是扰动函数是为了防止一些实现比较差的 hashCode() 方法，换句话说使用扰动函数之后可以减少碰撞
+
+JDK1.8的hash方法相比于JDK1.7的hash方法更加简化，但是原理不变
+
+    static final int hash(Object key) {
+        int h;
+        // key.hashCode(): 返回散列值也就是hashcode
+        // ^: 按位异或
+        // >>>: 无符号右移
+    }
+
+### JDK1.8之后
+
+
+### HashMap默认加载因子是多少？为什么是0.75，不是0.6或者0.8
