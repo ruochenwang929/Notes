@@ -232,9 +232,23 @@ JDK1.8的hash方法相比于JDK1.7的hash方法更加简化，但是原理不变
         // key.hashCode(): 返回散列值也就是hashcode
         // ^: 按位异或
         // >>>: 无符号右移
+        return (key == null) ? 0 : (h = key.hashcode()) ^ (h >>> 16)
+    }
+
+对比一下JDK1.7的HashMap的hash方法源码
+
+    static int hash(int h){
+        //This function ensures that hashCodes that differ only by constant multiplesat each bit pisition
+        //have a bounded number of collisions(approximately 8 at default load factor)
+
+        h ^= (h >>> 20) ^ (h >>> 12);
+        return h ^ (h >>> 7) ^ (h >>> 4);
     }
 
 ### JDK1.8之后
 
 
+
 ### HashMap默认加载因子是多少？为什么是0.75，不是0.6或者0.8
+
+默认的loadFactor是0.75，0.75是对空间和时间效率的一个平衡选择，一般不要修改，除非在时间和空间比较特殊的情况下 ：1.如果内存空间很多而又对时间效率要求很高，可以降低负载因子Load factor的值；2.如果内存空间紧张而对时间效率要求不高，可以增加负载因子loadFactor的值，这个值可以大于1
