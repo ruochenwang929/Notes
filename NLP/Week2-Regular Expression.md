@@ -98,3 +98,109 @@ Examples:
 :yellow_heart: Caution :yellow_heart:
 
 Is `[^\d\s]` the same as `[\D\S]`?
+
+- `[^\d\s]`: Not digit OR space character
+
+<div align=center><img src="./Images/w2_re4.png" alt="w2_re4" width = "200"/></div>
+
+- `[\D\S]`: EITHER NOT digit OR NOT space character
+
+<div align=center><img src="./Images/w2_re5.png" alt="w2_re5" width = "200"/></div>
+
+## Repetition Expressions: repetition meta-characters
+
+| Meta-characters | Meaning |
+| --- | ----------- |
+| * | Match 0 or more repetitions of the preceding regex |
+| + | Match 1 or more repetitions of the preceding regex |
+| ? | Match 0 or 1 repetitions of the preceding regex |
+
+Examples:
+
+Assume we are going to match the following words **oops ooops ooooops oooooops**, but not **ops**
+
+The regular expressions that we can use: `ooo*ps oo+ps`
+
+## Repetition Expressions: quantified repetitions
+
+`{m, n}`: matches exactly from *m* to *n* repetitions of the preceding regular expression.
+
+- m (min) and n (max) are positive numbers
+- m must be always be included, can be 0
+- n is optional
+
+Three syntax
+
+- `\d{2}` matches numbers with exactly 2 digits.
+- `\d{2, 4}`matches numbers with 2 to 4 digits.
+- `\d{2, }` matches numbers with at least 2 digits (n is infinite).
+
+## Grouping: (...)
+
+`(. . . )` matches whatever regular expression is inside the parentheses, and indicates the start and end of a group.
+
+- Apply repetition operators to a group of regular expressions
+- Makes regular expressions easier to read
+- Capture groups for use in matching, replacing and extraction, i.e., the contents of a group can be retrieved.
+- Cannot be used insides a character set.
+
+Examples:
+
+`abc+` matches **abc, abcc, abcccc**
+
+`(abc)+` matches **abc, abcabc, abcabcabc**
+
+## Repetition Expressions: greedy v.s. lazy regex
+
+### Greedy strategy
+
+Match as much as possible before giving control to the next regular expression part.
+
+Regular expressions try to match the longest possible string
+
+Example: `.*\d+`
+
+### Lazy strategy:
+
+Match as little as possible before giving control to the next regular expression part
+
+Syntax: `*?`, `+?`, `??`, `{m,n}?`
+
+## Alternation: |
+
+`"|"` is an OR operator
+
+- A|B will match any string that matches either A or B
+- Ordered: leftmost expression gets precedence.
+- Multiple patterns can be daisy-chained.
+- Group alternation expressions to keep them distinct.
+
+Examples:
+
+- `apple|orange` matches either “apple” or “orange”
+- `(apple|orange) juice` matches either “apple juice” or “orange juice”
+- `w(ei|ie)rd` matches either “weird” or “wierd”.
+
+## The backslash plague: \
+
+The back slash `\` indicates special forms or to allow special characters to be used without invoking their special meaning
+
+| Characters | Stage |
+| --- | ----------- |
+| `\section` | text string to be matched |
+| `\\section` | Escaped backslash for re.compile() |
+| `\\\\section` | Escaped backslashes for a Python string literal |
+
+So, to match a literal backslash, one has to write `\\\\` as the regular expression string
+
+## Raw String: r". . . "
+
+Raw String suppress actual meaning of escape characters, and do not treat the backslash as a special character at all.
+
+| Regular Python string literal | Raw string |
+| --- | ----------- |
+| `\\\\section` | `r"\\section"`|
+| `\\w+\\s+` | `r"\w+\s+"` |
+
+Regular expressions will often be written in Python code using this raw string notation.
+
