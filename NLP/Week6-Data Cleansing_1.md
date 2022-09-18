@@ -113,3 +113,48 @@ The characteristics of interest for a categorial variable
 - the frequency of occurrence for each value
 - univariate non-graphical technique: tabulation of the frequencies
 
+### Univariate non-graphical methods: Quantitative data
+
+**Numerical variables:** values or observations that can be measured, and these numerical values can be placed in ascending or descending order.
+
+- Examples: salary, height, weight, etc.
+
+The characteristics of the population distribution of a numerical variable
+
+- **center tendency**: "location" of a distribution, dealing with typical or middle values.
+  - **Mean**: the arithmetic average of a set of values
+  - **Median**: the middle value after all the values are put in an order list.
+  - **Mode**: the most frequent occurring value in a set of values
+- **spread**: an indicator of how far away from the centre we are still likely to find data values.
+  - Range: the difference between the smallest and largest values in the data set.
+  - Standard Deviation and Variance
+  - The Interquartile Range
+  - The inter-quartile range (IQR)
+- **shape**: Skewness and Kurtosis
+- **outliers**: values that are outside of the areas of a distribution that would commonly occur.
+
+The characteristics of the population distribution of a numerical variable
+
+- center tendency
+  - **Mean**: the arithmetic average of a set of values
+  - **Median**: the middle value after all the values are put in an order list.
+  - **Mode**: the most frequent occurring value in a set of values
+
+### Univariate graphical methods
+
+- **Histograms**: a quick way of learning the characteristics of your data, including central tendency, spread, shape, outliers, etc.
+- **Boxplots** (or Box-and-Whiskers Plot): display five-point summaries and potential outliers in graphical form
+
+### Multivariable non-graphical methods: Categorical data
+
+**Cross-tabulation**: a two-way table with column headings that match the levels of one variable and row headings that match the levels of the other variable, then filling in the counts of all subjects that share a pair of levels.
+
+### Multivariable non-graphical methods: Quantitative variables
+
+- Covariance
+- Correlation
+
+### Multivariable graphical methods
+
+- Side-by-Side boxplot
+- Scatterplot
