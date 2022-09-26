@@ -1,4 +1,4 @@
-# Week 2 - Intro Android
+# Intro Android
 
 ## Outline
 

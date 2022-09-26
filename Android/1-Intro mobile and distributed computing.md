@@ -1,4 +1,4 @@
-# Week 1 -  Introduction to mobile and distributed computing
+# Introduction to mobile and distributed computing
 
 ## Distributed computing
 

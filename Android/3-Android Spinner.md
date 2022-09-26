@@ -1,4 +1,4 @@
-# Week 2 - Android Spinner
+# Android Spinner
 
 ## Spinner
 

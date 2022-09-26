@@ -1,4 +1,4 @@
-# Week 3 - Android Views and Intent
+# Android Views and Intent
 
 ## Outline
 

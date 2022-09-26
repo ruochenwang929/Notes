@@ -1,4 +1,4 @@
-# Week 4 - Fragment and Livedata
+# Fragment and Livedata
 
 ## Outline
 
