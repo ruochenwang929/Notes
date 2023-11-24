@@ -12,8 +12,8 @@ Now you have a empty git repo, you can use `ls -ah` to check if there is a `.git
 # Local repository operation
 Display which file has been modified: `git status`  
 Display the changes: `git diff`  
-Display commit logs : `git log`
-Display branch commit logs: `git log --graph`
+Display commit logs : `git log`  
+Display branch commit logs: `git log --graph`  
 Display command history: `git reflog`  
 Rollback to the previous version: `git reset --hard HEAD^`  
 Rollback to the specified version: `git reset --hard <version>`   
@@ -100,7 +100,7 @@ Switch to ***test*** branch: `git checkout test`
 :bell: Tips: the above two commands can be combined into one:
 `git checkout -b test`
 
-Check current branch: `git branch`
+Check current branch: `git branch`  
 Display all local and remote branches: `git branch -a`
 
 Now you can make changes and commit on the ***test*** branch, when your work is done on the ***test*** branch, you can switch back to ***master*** branch: `git check out master`.
