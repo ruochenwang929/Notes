@@ -1,54 +1,44 @@
-# Git Notes
+# Install Git
+[www.google.com](https://www.google.com)
 
-## Install Git
+# Initial git
+Enter a directory, then type: `git init`  
+Now you have a empty git repo, you can use `ls -ah` to check if there is a `.git` file
 
-Too lazy to teach you
-
-## Initial git
-
-Enter a directory, then input: `git init`
-
-## Add and Commit
-
+# Add and Commit
 `git add <filename>`  
 `git commit -m "your comment"`
 
-## Local repository operation
+# Local repository operation
+Display which file has been modified: `git status`  
+Display the changes: `git diff`  
+Display commit logs : `git log`
+Display branch commit logs: `git log --graph`
+Display command history: `git reflog`  
+Rollback to the previous version: `git reset --hard HEAD^`  
+Rollback to the specified version: `git reset --hard <version>`   
+:point_up:*(There is no need to type the entire version number, just the first few characters)*  
+Discard changes in working directory: `git checkout -- <file>`  
+Delete file:
+1. `git rm <filename>`
+2. `git add` and `git commit`
 
-Display which file has been modified: `git status`
-
-Display the changes: `git diff`
-
-Displays commit logs from most recent to farthest, use`git log`
-
-Rollback to the previous version, use `git reset --hard HEAD^`
-
-Rollback to the specified version, use `git reset --hard
-<version>` *There is no need to write the entire version number, just the first few characters.*
-
-Review the command history to determine which version to go back to in the future, use `git reflog`
-
-Delete file, use `rm <filename>`, then, use `git rm <filename>`, finally, remember use `git add` and `git commit`
-
-## Create remote repository
-
-**First step**, create SSH Key. In the user's home directory, check whether the ***.ssh*** directory exists. If so, check whether the ***id_rsa*** and ***id_rsa.pub*** files exist in the directory, if they are already exist, skip to the next step. If they are not exist, open Shell (Git Bash on Windows) and create an SSH Key:
+# Create remote repository
+**First step**, create SSH Key. In the user's home directory, check if the ***.ssh*** directory exists. If so, check if the ***id_rsa*** and ***id_rsa.pub*** files exist in the directory, if they are already exist, skip to the next step. If they are not exist, open Shell (Git Bash on Windows) and create an SSH Key:
 
 `ssh-keygen -t rsa -C "youremail@example.com"`
 
 If everything goes well, you can find the ***.ssh*** directory in the user home directory which contains ***id_rsa*** and ***id_rsa.pub***.
 
-:blue_heart: ATTENTION :blue_heart: :
-
+:blue_heart: ATTENTION :blue_heart: :  
 ***id_rsa*** is a private key, it can't be disclosed. ***id_rsa.pub*** is a public key, you can safely tell others.
 
 **Second step**, login to GitHub, open "Settings" -> "SSH and GPG keys" page, then generate a new SSH key.
 
 GitHub allows you to add multiple keys. If you have several computers and you submit code at company or at home, add the Key of each computer to GitHub and you will be able to push to GitHub from each computer.
 
-## Remote synchronization
-
-### Add remote repository
+# Remote synchronization
+## Add remote repository
 
 Now that you've created a Git repository locally, you want to create a Git repository on GitHub and synchronize the two repositories remotely, so that the repository on GitHub can both be used as a backup and allow others to collaborate with it.
 
@@ -58,7 +48,7 @@ Now that you've created a Git repository locally, you want to create a Git repos
 
 `git remote add origin git@github.com:<GitHub account name>/<GitHub repository name>.git`
 
-For example, my GitHub account name is ***ruochenwang929***, and I create a new GitHub repository named ***Test***. Then I should enter the following command in my local repository:
+For example, my GitHub account name is ***ruochenwang929***, and I create a new GitHub repository named ***Test***. Then I should type the following command in my local repository:
 
 `git remote add origin git@github.com:ruochenwang929/Test.git`
 
@@ -74,13 +64,15 @@ GitHub can now see that the contents of the remote repository are exactly the sa
 
 `git push -u origin master`
 
-:exclamation::exclamation::exclamation: If you want to delete remote repository. First, use `git remote -v` to see the information about remote repository, then delete by name, for example I want to delete ***origin***: `git remote rm origin`
+If you want to delete remote repository:
+1. use `git remote -v` to see the information about remote repository
+2. then delete by name, for example I want to delete ***origin***: `git remote rm origin`
 
-### Clone remote repository
+:heart: ATTENTION :heart: :
+The 'delete' here just unbinds the local and remote binding relationship, not physically deleting the remote repo.
 
-So far we've talked about having local repository first, then remote repository, and then associating them.
-
-For now, assuming you're developing from scratch, the best way to do this is to create a remote repository and clone it to the local repository.
+## Clone remote repository
+ Assuming you're developing from scratch, the best way to do this is to create a remote repository and clone it to the local repository.
 
 **First step**, login to GitHub and create a new repository.
 
@@ -102,38 +94,47 @@ Since October 1, 2020, the default branch name for new repositories in GitHub is
 
 For example, `git pull origin main`, `git push origin main` so on and so forth.
 
-### Fork management
-
-Create a new branch called ***test***: `git branch test`
-
-Switch to ***test*** branch: `git checkout test`
-
-:bell: *Tips*: the above two commands can be combined into one:
-
+## Fork management
+Create a new branch called ***test***: `git branch test`  
+Switch to ***test*** branch: `git checkout test`  
+:bell: Tips: the above two commands can be combined into one:
 `git checkout -b test`
 
-Then you can check current branch: `git branch`, this command will list all local branches, with the current branch preceded by an asterisk. (If you want to display all local and remote branches, use: `git branch -a`)
+Check current branch: `git branch`
+Display all local and remote branches: `git branch -a`
 
 Now you can make changes and commit on the ***test*** branch, when your work is done on the ***test*** branch, you can switch back to ***master*** branch: `git check out master`.
 
 Finally, you should merge the work of the ***test*** branch into the ***master*** branch: `git merge test`.
 
-After merge ***test*** branch, you can chose to delete ***test*** branch: `git branch -d test`.
+After merging ***test*** branch, you can choose to delete ***test*** branch: `git branch -d test`.
 
 However, the above command can only delete branches of the local repository, if you want to delete branches of the remote repository, use: `git push origin --delete test`
 
-### .gitignore
-
+# .gitignore
 Configure .gitignore in IDEA:
 
 1. Install **.gitignore** plugin in IDEA
 2. In project level, New -> .ignore file -> .gitignore file(git)
 3. Configure corresponding filtering files
-4. The added.gitignore may not work
-   a. Go to the folder where the project package is located
-   b. `git rm -r --cached .`
-   c. `git add .`
-   d. `git commit -m "update .gitignore"`
+4. The added.gitignore may not work, solutions:
+   1. Go to the folder where the project package is located
+   2. `git rm -r --cached .`
+   3. `git add .`
+   4. `git commit -m "update gitignore file"`
 
+# git stash
 
-:poop: Author has to write his assignment, to be continue...
+      public static void main(String[] args) {
+            System.out.println("Existing code on the feature branch");
+            // ...
+            System.out.println("Code under development");
+      }
+After using `git stash`
+
+      public static void main(String[] args) {
+            System.out.println("Existing code on the feature branch");
+            // ...
+      }
+You can use `git stash list` to display list  
+Finally you can use `git stash pop` or `git stash apply` to recover code
